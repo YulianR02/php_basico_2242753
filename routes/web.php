@@ -38,4 +38,38 @@ Route::get("Arreglos", function(){
       echo "</pre>";
 
 });
+Route::get("paises", function () {
+    $paises = [
+        //Areglo de dos dimenciones
+          "Colombia" => [
+              "capital" => "Bogota.",
+              "monedo" => "Pesos Colombianos",
+              "poblacion" => "51 M"
+
+          ],
+          "Peru"=> [
+            "capital" => "Lima.",
+            "moneda" => "sol",
+            "poblacion" => "33 M"
+          ],
+          "Paraguay" => [
+            "capital" => "Asuncion.",
+            "moneda" => "Guaraní paraguayo",
+            "poblacion" => "7 M"
+
+          ]
+    ];
+    echo  "<pre>";
+    print_r($paises["Peru"]["capital"]);
+    echo "</pre>";
+
+    //Recorrer un arreglo 
+    foreach($paises as $nombre => $pais){
+        echo "<h1>$nombre</h1>";
+        echo  "<pre>";
+        print_r($pais["capital"]);
+        echo "</pre>";
+        echo "<hr />";
+    }
+});
 
