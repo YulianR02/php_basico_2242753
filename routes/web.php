@@ -43,33 +43,31 @@ Route::get("paises", function () {
         //Areglo de dos dimenciones
           "Colombia" => [
               "capital" => "Bogota.",
-              "monedo" => "Pesos Colombianos",
+              "moneda" => "Pesos Colombianos",
               "poblacion" => "51 M"
 
           ],
           "Peru"=> [
-            "capital" => "Lima.",
-            "moneda" => "sol",
+            "capital" => "Lima",
+            "moneda" => "Sol",
             "poblacion" => "33 M"
           ],
           "Paraguay" => [
-            "capital" => "Asuncion.",
+            "capital" => "Asuncion",
             "moneda" => "Guaraní paraguayo",
             "poblacion" => "7 M"
 
-          ]
+          ],
+          "Brasil" =>[
+            "capital" => "Brasilia",
+            "moneda" => "Real Brasileño",
+            "poblacion" => "211 M",
+            
+          ],
     ];
-    echo  "<pre>";
-    print_r($paises["Peru"]["capital"]);
-    echo "</pre>";
 
-    //Recorrer un arreglo 
-    foreach($paises as $nombre => $pais){
-        echo "<h1>$nombre</h1>";
-        echo  "<pre>";
-        print_r($pais["capital"]);
-        echo "</pre>";
-        echo "<hr />";
-    }
+    //Mostrar la vista de paises
+    //Llevando el arreglo de paises
+    return view("paises")->with("naciones", $paises);
 });
 
