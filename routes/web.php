@@ -62,7 +62,7 @@ Route::get("paises", function () {
             "capital" => "Brasilia",
             "moneda" => "Real Brasileño",
             "poblacion" => "211 M",
-            
+
           ],
     ];
 
@@ -71,3 +71,6 @@ Route::get("paises", function () {
     return view("paises")->with("naciones", $paises);
 });
 
+Route::get('mostrar_formulario', 'MetabuscadorController@mostrar_formulario'  );
+
+Route::post('buscar_termino', "MetabuscadorController@buscar_termino");
