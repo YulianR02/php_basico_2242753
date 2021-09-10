@@ -3,35 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\artista;
+use App\Http\Requests\UserStoreRequest;
+use App\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
-class ArtistaController extends Controller
+class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    public function __construct()
+    {
+        $this->middleware('miautenticacion');
+    }
+    
+    
     public function index()
     {
-        // En una variable, Traer los artistas
-        $artistas = artista::paginate(10);
-    
-
-        //Mostrar Listado o catalogo de artista
-        //Con los artistas seleccionados del modelo
-        return view('artistas.index')->with('artistas',$artistas);
+        $numeroUsuarios = User::all()->count();
+        return view('users.index')->with("numeroUsuarios", $numeroUsuarios);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
-        echo "Aqui va el formulario para registrar nuevos artistas";
+        return view('users.create');
     }
 
     /**
@@ -40,9 +34,14 @@ class ArtistaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        //
+        $user = new User();
+        $user->name = $request->input("usuario");
+        $user->email = $request->input("email");
+        $user->password = Hash::make($request->input("password"));
+        $user->save();
+        return redirect('users')->with("registro", "Usuario registrado");
     }
 
     /**
@@ -56,11 +55,15 @@ class ArtistaController extends Controller
         //
     }
 
-
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function edit($id)
     {
         //
-        echo "Aqui se muestra el formulario de editar el artista cuyo id es el que se pase como parametro : $id ";
     }
 
     /**
